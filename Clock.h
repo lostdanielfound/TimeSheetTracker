@@ -11,7 +11,7 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 #include <stdio.h>
-#include <Time.h>
+#include <time.h>
 
 int Clock_In(const time_t current_time);
 int Clock_Out(const time_t current_time);

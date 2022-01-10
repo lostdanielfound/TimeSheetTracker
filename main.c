@@ -1,6 +1,6 @@
 /* ---Hour Logging system---
  * Author: Daniel Guzman
- * Version: Alpha 0.1v
+ * Version: Alpha 0.2v
  * 
  * DISCLAMER: ANYONE RECERVES THE RIGHT TO USE THIS APPLICATION 
  * ACCORDING TO PUBLIC USES.
@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
-#include "Time.h"
+#include <time.h>
 #include "Clock.h"
 #include "Timefun.h" 
 
@@ -23,7 +23,7 @@ int main(void) {
 	printf("\t-------------------------------\n"); 
 
 	int c; /* ASCII character input from STDIN */
-
+	
 	while(1) 
 	{
 		printf("\n\t1) Clock In\n"); 
@@ -47,6 +47,8 @@ int main(void) {
 			case '6': return 0; 
 			default: return 0; 
 		}
+
+		printf("\n\t-------------------------------\n");
 
 		/* If error occured, then report on stdio 
 		( idk how to report on stderr ) */

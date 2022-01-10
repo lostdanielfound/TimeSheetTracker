@@ -24,7 +24,7 @@ int Clock_In(const time_t current_time) {
         and thus can't do it twice in the row. */
 
         printf("\tInvaild Choice: Cannot clock out twice...\n");
-        return INVAILD_INPUT; 
+        return INVAILD_INPUT;
     }
 
     //If all goes well, we can now append to the file

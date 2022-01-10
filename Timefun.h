@@ -16,5 +16,6 @@
 int Time_Review(const time_t current_time);
 int Time_Add(const time_t current_time);
 int Time_Delete(const time_t current_time);
+double Time_Output(const double seconds_sum); 
 
 #endif //end TIMEFUN_H
