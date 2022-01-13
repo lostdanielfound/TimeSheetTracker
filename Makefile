@@ -1,20 +1,22 @@
 CC=gcc 
 EXE=TimeLogger 
-FLAGS=-c
+FLAGS=-g -Wall
 
-all: output clean
+all: output
 
-output: main.o Timefun.o Clock.o 
-	$(CC) main.o Timefun.o Clock.o -o $(EXE)
+# The symbol: $^ denotes the replacement of the dependency list of the rule. 
 
-main.o: main.c
-	$(CC) $(FLAGS) main.c
+Timefun.o: Timefun.c Timefun.h
+	$(CC) $(FLAGS) -c $^
 
-Timefun.o: Timefun.c
-	$(CC) $(FLAGS) Timefun.c
+Clock.o: Clock.c Clock.h
+	$(CC) $(FLAGS) -c $^
 
-Clock.o: Clock.c
-	$(CC) $(FLAGS) Clock.c 
+output: main.c Timefun.o Clock.o 
+	$(CC) $(FLAGS) -o $(EXE) $^ 
 
 clean:
-	rm *.o 
+	rm *.o *.gch $(EXE)
+
+submit:
+	zip $(EXE) *.c *.h
