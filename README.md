@@ -1,3 +1,5 @@
+[![C/C++ CI](https://github.com/lostdanielfound/TimeSheetTracker/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/lostdanielfound/TimeSheetTracker/actions/workflows/c-cpp.yml)
+
 # TimeSheetTracker
 This program is to represent a Time Sheet Tracker in that it will record when a user Clocks-in or Clocks-Out and output a Cumliative Time review of all the hours recorded. 
 This program was made as practice, this program has been written entirly in C.
