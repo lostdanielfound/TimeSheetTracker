@@ -12,10 +12,16 @@
  * due to the inability to view put outputs at 
  * the same time.
 */
-int cursorSelection(char** selectionList, int listSize) {
+int cursorSelection(char** selectionList, int listSize, char* title) {
   initscr(); //initalize screen noecho();
   //Move cursor intially to the middle of the terminal. 
 
+  if (title != NULL)
+  {
+    move(INITAL_Y - 2, INITAL_X - 5);
+    printw("%s\n", title);
+  }
+  
   int x, y; 
   
   x = INITAL_X; y = INITAL_Y; 
