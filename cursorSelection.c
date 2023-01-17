@@ -3,8 +3,6 @@
 //https://www.codedrome.com/an-introduction-to-ncurses-in-c/
 //Cursor positioning: https://rosettacode.org/wiki/Terminal_control/Cursor_positioning#C/C++
 //When using this function, you must include -nlncurses tag upon compiling
-#define INITAL_X 25
-#define INITAL_Y 5
 
 /* 
  * cursorSelection is ncurses.h dependent and 
@@ -12,7 +10,7 @@
  * due to the inability to view put outputs at 
  * the same time.
 */
-int cursorSelection(char** selectionList, int listSize, char* title) {
+int cursorSelection(char** selectionList, int listSize, char* title, char* user) {
   initscr(); //initalize screen noecho();
   //Move cursor intially to the middle of the terminal. 
 
@@ -20,6 +18,12 @@ int cursorSelection(char** selectionList, int listSize, char* title) {
   {
     move(INITAL_Y - 2, INITAL_X - 5);
     printw("%s\n", title);
+  }
+  
+  if (user != NULL)
+  {
+    move(INITAL_Y - 1, INITAL_X - 5);
+    printw("Current Clock-in User: %s", user);
   }
   
   int x, y; 
