@@ -1,7 +1,7 @@
 #ifndef PRO_MACROS
 #define PRO_MACROS 
 
-#define ENTRY_DATABASE ".Hour_logging_sys"
+#define ENTRY_DATABASE "TIME_DATABASE"
 #define CLOSE_FILE if (f_handle != NULL) { fclose(f_handle); }
 #define FILE_APPEND_ERROR -5
 #define FILE_READ_ERROR -6
