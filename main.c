@@ -19,6 +19,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h> // refer to man signal or https://en.cppreference.com/w/c/program/signal
 #include <ctype.h>
 #include <ncurses.h>
 #include <time.h>
@@ -29,20 +30,17 @@
 int main(void) {
 
 	int choice;
-	char* current_clockin_user = (char*)malloc(256);
-	char* Logout_options[4] = {"Create New User", "Clock-In User", "Clock-Out User", "Show TimeSheet"};
+	char* current_clockin_user = NULL; 
+	char* default_options[3] = {"Create New User", "Clock-In User", "Show TimeSheet"};
 	char* LoggedIn_options[3] = {"Create New User", "Clock-Out User", "Show TimeSheet"};
 	
 	while(1)
 	{
 		if (current_clockin_user != NULL) //THIS MAKES LITERALLY NO SENCE, BRUH i NEED TO CHANGE THIS 
 		{
-			choice = cursorSelection(LoggedIn_options, 3, "Time Logging System");
+			choice = cursorSelection(LoggedIn_options, 3, "Time Logging System", current_clockin_user);
 		}
-		else 
-		{
-			choice = cursorSelection(Logout_options, 4, "Time Logging System");
-		}
+		choice = cursorSelection(default_options, 3, "Time Logging System");
 
 		swtich(choice)
 		{
