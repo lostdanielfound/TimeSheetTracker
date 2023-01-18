@@ -9,13 +9,13 @@ all: output
 cursorSelection.o: cursorSelection.c cursorSelection.h
 	$(CC) $(FLAGS) -c $^
 
-Timefun.o: Timefun.c Timefun.h
+Time_Functions.o: Time_Functions.c Time_Functions.h
 	$(CC) $(FLAGS) -c $^
 
 Clock.o: Clock.c Clock.h
 	$(CC) $(FLAGS) -c $^
 
-output: main.c Timefun.o Clock.o cursorSelection.o
+output: main.c Time_Functions.o Clock.o cursorSelection.o
 	$(CC) $(FLAGS) -lncurses -o $(EXE) $^ 
 
 clean:
