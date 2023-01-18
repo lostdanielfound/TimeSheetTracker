@@ -10,23 +10,32 @@
  * Author note: Current version is not ready
  * */
 
+/*TODO:
+- ensure if user exits with ctrl-C, the heap is freed
+- Finish create_new_user() and test it
+- Test database file as well. 
+
+*/
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <ncurses.h>
 #include <time.h>
 #include "Clock.h"
-#include "Timefun.h" 
+#include "Time_Functions.h" 
 #include "cursorSelection.h"
 
 int main(void) {
 
 	int choice;
+	char* current_clockin_user = (char*)malloc(256);
 	char* Logout_options[4] = {"Create New User", "Clock-In User", "Clock-Out User", "Show TimeSheet"};
 	char* LoggedIn_options[3] = {"Create New User", "Clock-Out User", "Show TimeSheet"};
 	
 	while(1)
 	{
-		if (LOGGEDIN) 
+		if (current_clockin_user != NULL) //THIS MAKES LITERALLY NO SENCE, BRUH i NEED TO CHANGE THIS 
 		{
 			choice = cursorSelection(LoggedIn_options, 3, "Time Logging System");
 		}
