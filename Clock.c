@@ -23,9 +23,9 @@ int Create_New_user(const char* name) {
 /*
 @func: Clock_In
 @purpose: Attempts Clocks in the user that is passed-in
-@return: 0 if user is able to be clocked in at the time of attmepting to clock in, negative integer if error occured. 
+@return: On success, returns the pointer of user_name that is clock-in, returns NULL on failure. 
 */
-int Clock_In(const char* user_name) {
+char* Clock_In(const char* user_name) {
     FILE *f_handle = fopen(ENTRY_DATABASE, "r");
     time_t current_time = time(NULL);
     if (f_handle == NULL)
@@ -69,9 +69,9 @@ int Clock_In(const char* user_name) {
 }
 
 /*
-@func: Clock_In
-@purpose: Attempts Clocks in the user that is passed-in
-@return: 0 if user is able to be clocked in at the time of attmepting to clock in, negative integer if error occured. 
+@func: Clock_Out
+@purpose: Attempts Clock out the user that is passed-in
+@return: returns 0 on success, negative error code if failure 
 */
 int Clock_Out(const char* user_name) {
     FILE *f_handle = fopen(ENTRY_DATABASE, "r");
@@ -114,4 +114,13 @@ int Clock_Out(const char* user_name) {
     CLOSE_FILE
 
     return 0;
+}
+
+/*
+@func: ListClockedIn
+@purpose: Checks to see which users are currently clocked-in within the database file
+@return: On success an array of Usernames that are clocked-in, on failure returns NULL  
+*/
+char** ListClockedIn(char** usernames) {
+
 }
