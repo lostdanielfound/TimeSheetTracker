@@ -2,6 +2,7 @@
 #define PRO_MACROS 
 
 #define ENTRY_DATABASE "TIME_DATABASE"
+#define LOGGEDIN 1
 #define CLOSE_FILE if (f_handle != NULL) { fclose(f_handle); }
 #define FILE_APPEND_ERROR -5
 #define FILE_READ_ERROR -6
@@ -13,7 +14,8 @@
 #include <stdio.h>
 #include <time.h>
 
-int Clock_In(const time_t current_time);
-int Clock_Out(const time_t current_time);
+int Create_New_user(const char* name);
+int Clock_In(const char* user_name);
+int Clock_Out(const char* user_name);
 
 #endif //end CLOCK_H

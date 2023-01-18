@@ -1,8 +1,33 @@
 #include "Clock.h"
 
-int Clock_In(const time_t current_time) {
-    FILE *f_handle = fopen(ENTRY_DATABASE, "r");
+/*
+@func: Create_New_user
+@purpose: Creates a new user within the Datebase file TIME_DATABASE. 
+    simplly adds {USER_NAME} within the file and intializes it. 
+@return 0 if the new user has been created and negative integer if error occured. 
+*/
+int Create_New_user(const char* name) {
+    FILE *f_handle = fopen(ENTRY_DATABASE, "a+"); // Opens file in APPEND EXTENDED mode 
 
+    if (f_handle == NULL) //File could not be access 
+    {
+        perror("\tFile error: Could not open for reading\n");
+        return -1;
+    }
+
+    fputs(name, f_handle); //append the new user
+
+    CLOSE_FILE
+}
+
+/*
+@func: Clock_In
+@purpose: Attempts Clocks in the user that is passed-in
+@return: 0 if user is able to be clocked in at the time of attmepting to clock in, negative integer if error occured. 
+*/
+int Clock_In(const char* user_name) {
+    FILE *f_handle = fopen(ENTRY_DATABASE, "r");
+    time_t current_time = time(NULL);
     if (f_handle == NULL)
     {
         printf("\tFile error: Could not open for reading\n");
@@ -43,9 +68,14 @@ int Clock_In(const time_t current_time) {
     return 0;
 }
 
-int Clock_Out(const time_t current_time) {
+/*
+@func: Clock_In
+@purpose: Attempts Clocks in the user that is passed-in
+@return: 0 if user is able to be clocked in at the time of attmepting to clock in, negative integer if error occured. 
+*/
+int Clock_Out(const char* user_name) {
     FILE *f_handle = fopen(ENTRY_DATABASE, "r");
-
+    time_t current_time = time(NULL);
     if (f_handle == NULL) 
     {
         printf("\tFile error: Could not open for reading\n");
