@@ -15,8 +15,14 @@
 #include <stdio.h>
 #include <time.h>
 
+/**
+ * @brief 
+ * These are generic header functions that can be used to attempt to 
+ * read/change/create the TIME_DATABASE file. 
+ */
+
 int Create_New_user(const char* name);
-char* Clock_In(const char* user_name);
+int Clock_In(const char* user_name);
 int Clock_Out(const char* user_name);
 char** ListClockedIn(char**);
 

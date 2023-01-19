@@ -1,10 +1,9 @@
 #include "Clock.h"
 
-/*
-@func: Create_New_user
-@purpose: Creates a new user within the Datebase file TIME_DATABASE. 
-    simplly adds {USER_NAME} within the file and intializes it. 
-@return 0 if the new user has been created and negative integer if error occured. 
+/**
+* @purpose: Creates a new user within the Datebase file TIME_DATABASE. 
+*     simplly adds {USER_NAME} within the file and intializes it. 
+* @return 0 if the new user has been created and negative integer if error occured. 
 */
 int Create_New_user(const char* name) {
     FILE *f_handle = fopen(ENTRY_DATABASE, "a+"); // Opens file in APPEND EXTENDED mode 
@@ -20,12 +19,12 @@ int Create_New_user(const char* name) {
     CLOSE_FILE
 }
 
-/*
-@func: Clock_In
-@purpose: Attempts Clocks in the user that is passed-in
-@return: On success, returns the pointer of user_name that is clock-in, returns NULL on failure. 
+/**
+* @purpose: Attempts Clocks in the user that is passed-in
+* @return: On success 0 is return, negative error code when failure, refer to 
+* program_macros for error codes.   
 */
-char* Clock_In(const char* user_name) {
+int Clock_In(const char* user_name) {
     FILE *f_handle = fopen(ENTRY_DATABASE, "r");
     time_t current_time = time(NULL);
     if (f_handle == NULL)
@@ -68,10 +67,10 @@ char* Clock_In(const char* user_name) {
     return 0;
 }
 
-/*
-@func: Clock_Out
-@purpose: Attempts Clock out the user that is passed-in
-@return: returns 0 on success, negative error code if failure 
+/**
+* @purpose: Attempts Clock out the user that is passed-in
+* @return: returns 0 on success, negative error code if failure, please see
+* Program_macros for error codes 
 */
 int Clock_Out(const char* user_name) {
     FILE *f_handle = fopen(ENTRY_DATABASE, "r");
@@ -116,10 +115,9 @@ int Clock_Out(const char* user_name) {
     return 0;
 }
 
-/*
-@func: ListClockedIn
-@purpose: Checks to see which users are currently clocked-in within the database file
-@return: On success an array of Usernames that are clocked-in, on failure returns NULL  
+/**
+* @purpose: Checks to see which users are currently clocked-in within the database file
+* @return: On success an array of Usernames that are clocked-in, on failure returns NULL  
 */
 char** ListClockedIn(char** usernames) {
 
