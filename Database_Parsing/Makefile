@@ -7,4 +7,5 @@ all: output
 output: main.c 
 	$(CC) $(FLAGS) $(EXE) $^
 
-clean: rm *.o *.gch
+clean: 
+	rm $(EXE)
