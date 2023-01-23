@@ -5,6 +5,9 @@
 #include <sys/stat.h>
 #include <stdbool.h>
 
+#define USERNAME_LIMIT 50
+#define USERNAME_MAX_SIZE 256
+
 //Check to see if file exists 
 //https://stackoverflow.com/questions/230062/whats-the-best-way-to-check-if-a-file-exists-in-c
 
@@ -20,11 +23,14 @@ int read_usernames(char** buf) {
 
   //Make sure to check if fopen failed to open file
   int i = 0;
+  char buffer[250];
 
   while (!feof(database_file))
   {
-    fscanf(database_file, "%s", buf[i]);                          //scan the username within the database file
-    printf("Username: %s\n", buf[i]);
+    fscanf(database_file, "%s", buffer);                          //scan the username within the database file
+    printf("Username: %s\n", buffer);
+    buf[i] = malloc(strlen(buffer) * sizeof(char)); //Making enough memory for the username
+    strcpy(buf[i], buffer); //storing the username in buf
     while (fgetc(database_file) != '\n' && !feof(database_file)); //Skips to the next line
     i++;
   }
@@ -60,7 +66,7 @@ int main(int argc, char** argv) {
   } //file doesn't exist
 
   /**Creates buffer allocation and file handle */
-  char** buffer = (char**)calloc(50, 256);
+  char** buffer = malloc(USERNAME_LIMIT * sizeof(char *));
   FILE *database_file = fopen("TIME_DATABASE", "r");
 
   //Read and lists usernames within the database file
