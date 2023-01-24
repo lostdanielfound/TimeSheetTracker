@@ -19,18 +19,21 @@ bool file_exists(char* filename) {
 }
 
 int read_usernames(char** buf) {
-  FILE *database_file = fopen("TIME_DATABASE", "r");
 
-  //Make sure to check if fopen failed to open file
+  FILE *database_file; 
+  if ((database_file = fopen("TIME_DATABASE", "r")) == NULL) 
+  {
+    return(EXIT_FAILURE);
+  }
+
   int i = 0;
-  char buffer[250];
+  char buffer[USERNAME_MAX_SIZE];
 
   while (!feof(database_file))
   {
     fscanf(database_file, "%s", buffer);                          //scan the username within the database file
-    printf("Username: %s\n", buffer);
-    buf[i] = malloc(strlen(buffer) * sizeof(char)); //Making enough memory for the username
-    strcpy(buf[i], buffer); //storing the username in buf
+    buf[i] = malloc(strlen(buffer) * sizeof(char));               //Making enough memory for the username
+    strcpy(buf[i], buffer);                                       //storing the username in buf
     while (fgetc(database_file) != '\n' && !feof(database_file)); //Skips to the next line
     i++;
   }
@@ -41,17 +44,36 @@ int read_usernames(char** buf) {
 }
 
 int read_clocked_in(char** buf) {
-  for (int i = 0; i < 50; i++)
+  FILE *database_file; 
+  if ((database_file = fopen("TIME_DATABASE", "r")) == NULL) 
   {
-    if (buf[i] == NULL) { break; }
-    printf("%s\n", buf[i]);
+    return(EXIT_FAILURE);
+  } 
+
+  int i = 0;
+  char buffer[USERNAME_MAX_SIZE];
+
+  while (!feof(database_file))
+  {
+    fscanf(database_file, "%s", buffer);                          //scan the username within the database file
+    printf("after username: %s, %c", buffer, fgetc(database_file));
+  // buf[i] = malloc(strlen(buffer) * sizeof(char));               //Making enough memory for the username
+  // strcpy(buf[i], buffer);                                       //storing the username in buf
+    while (fgetc(database_file) != '\n' && !feof(database_file)); //Skips to the next line
+    i++;
   }
-  
+
+  fclose(database_file);
+
   return EXIT_SUCCESS;
 }
 
 void list_usernames(char** buf) {
-
+  for (int i = 0; i < 50; i++)
+  {
+    if (buf[i] == NULL) { break; }
+    printf("%s\n", buf[i]);
+  }  
 }
 
 void list_clocked_in(char** buf) {
