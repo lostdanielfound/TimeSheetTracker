@@ -40,7 +40,7 @@ int read_usernames(char** buf) {
 
   fclose(database_file);
 
-  return i + 1;
+  return i;
 }
 
 int read_clocked_in(char** buf) {
@@ -67,7 +67,7 @@ int read_clocked_in(char** buf) {
 
   fclose(database_file);
 
-  return i + 1;
+  return i;
 }
 
 void list_usernames(int size, char** buf) {
