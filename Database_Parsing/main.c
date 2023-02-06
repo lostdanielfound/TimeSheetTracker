@@ -40,7 +40,7 @@ int read_usernames(char** buf) {
 
   fclose(database_file);
 
-  return EXIT_SUCCESS;
+  return i + 1;
 }
 
 int read_clocked_in(char** buf) {
@@ -56,27 +56,34 @@ int read_clocked_in(char** buf) {
   while (!feof(database_file))
   {
     fscanf(database_file, "%s", buffer);                          //scan the username within the database file
-    printf("after username: %s, %c", buffer, fgetc(database_file));
-  // buf[i] = malloc(strlen(buffer) * sizeof(char));               //Making enough memory for the username
-  // strcpy(buf[i], buffer);                                       //storing the username in buf
+    if (strchr(buffer, '+') != NULL) 
+    {
+      buf[i] = malloc(strlen(buffer) * sizeof(char));               //Making enough memory for the username
+      strcpy(buf[i], buffer);                                       //storing the username in buf
+      i++;
+    }
     while (fgetc(database_file) != '\n' && !feof(database_file)); //Skips to the next line
-    i++;
   }
 
   fclose(database_file);
 
-  return EXIT_SUCCESS;
+  return i + 1;
 }
 
-void list_usernames(char** buf) {
-  for (int i = 0; i < 50; i++)
+void list_usernames(int size, char** buf) {
+  for (int i = 0; i < size; i++)
   {
     if (buf[i] == NULL) { break; }
     printf("%s\n", buf[i]);
   }  
 }
 
-void list_clocked_in(char** buf) {
+void list_clocked_in(int size, char** buf) {
+  for (int i = 0; i < size; i++)
+  {
+    if (buf[i] == NULL) { break; }
+    printf("%s\n", buf[i]);
+  }  
 }
 
 int main(int argc, char** argv) {
@@ -87,23 +94,24 @@ int main(int argc, char** argv) {
     return -1;
   } //file doesn't exist
 
-  /**Creates buffer allocation and file handle */
+  /**Creates buffer allocation */
   char** buffer = malloc(USERNAME_LIMIT * sizeof(char *));
-  FILE *database_file = fopen("TIME_DATABASE", "r");
 
   //Read and lists usernames within the database file
-  read_usernames(buffer);
+  int size = read_usernames(buffer);
   printf("Users in the database are: \n");
-  list_usernames(buffer);
+  list_usernames(size, buffer);
+  free(buffer);
+
+  /**Creates buffer allocation */
+  char** buffer2 = malloc(USERNAME_LIMIT * sizeof(char *));
 
   //Reads which usernames are clocked-in and lists out within the database file
-  read_clocked_in(buffer);
+  size = read_clocked_in(buffer2);
   printf("\nUsers that are clocked-in: \n");
-  list_clocked_in(buffer);
+  list_clocked_in(size, buffer2);
 
-  //freeing
-  free(buffer);
-  fclose(database_file);
+  free(buffer2);
 
   return EXIT_SUCCESS;
 }
