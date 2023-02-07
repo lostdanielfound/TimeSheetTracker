@@ -35,9 +35,10 @@ int Create_New_user(const char* name);
 /// @return negative integer if user_name doesn't exist, 0 on success on clocking-in. 
 int Clock_In(const char* user_name);
 
-/// @brief Attempts to clock-out user given it's username 
+/// @brief Attempts to clock-out user given it's username Time stamp of the current time for clocking-out is added to the 
+/// username's time slot along with the '+' being removed from the username. 
 /// @param user_name 
-/// @return 
+/// @return negative integer if user_name doesn't exist or failed to clock-out, 0 on success on clocking-out.  
 int Clock_Out(const char* user_name);
 
 #endif //end CLOCK_H

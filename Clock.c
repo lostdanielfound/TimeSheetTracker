@@ -114,11 +114,3 @@ int Clock_Out(const char* user_name) {
 
     return 0;
 }
-
-/**
-* @purpose: Checks to see which users are currently clocked-in within the database file
-* @return: On success an array of Usernames that are clocked-in, on failure returns NULL  
-*/
-char** ListClockedIn(char** usernames) {
-
-}
