@@ -24,7 +24,7 @@
 #include <ncurses.h>
 #include <time.h>
 #include "Clock.h"
-#include "Time_Functions.h" 
+#include "Choice_Functions.h"
 #include "cursorSelection.h"
 
 void CtlC_switch(char** usernames) { free(usernames); exit(0); }

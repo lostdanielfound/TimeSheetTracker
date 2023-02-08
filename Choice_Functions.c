@@ -1,6 +1,10 @@
 #include "Choice_Functions.h"
 #include <ncurses.h>
 
+/* These functions are used only to help display the options for the 
+user interface through ncurses. Seperated functions that perform the manipulateing 
+parsing of the TIME_DATEBASE are defined within Clock.h */
+
 /**
  * @brief 
  * Shows user a dialog on creating the new user that they want to add to the database, 
