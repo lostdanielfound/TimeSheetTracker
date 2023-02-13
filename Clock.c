@@ -1,12 +1,13 @@
 #include "Clock.h"
+#include <stdio.h>
+#include <stdbool.h>
+// #include <string.h>
+#include <malloc.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 
-/**
-* @purpose: Creates a new user within the Datebase file TIME_DATABASE. 
-*     simplly adds {USER_NAME} within the file and intializes it. 
-* @return 0 if the new user has been created and negative integer if error occured. 
-*/
 int Create_New_user(const char* name) {
-    FILE *f_handle = fopen(ENTRY_DATABASE, "r");
+    FILE *f_handle = fopen(DATABASE, "r");
     time_t current_time = time(NULL);
     if (f_handle == NULL)
     {
@@ -14,16 +15,13 @@ int Create_New_user(const char* name) {
         return FILE_READ_ERROR;
     }
 
+    //Write code...
+
     CLOSE_FILE
 }
 
-/**
-* @purpose: Attempts Clocks in the user that is passed-in
-* @return: On success 0 is return, negative error code when failure, refer to 
-* program_macros for error codes.   
-*/
 int Clock_In(const char* user_name) {
-    FILE *f_handle = fopen(ENTRY_DATABASE, "r");
+    FILE *f_handle = fopen(DATABASE, "r");
     time_t current_time = time(NULL);
     if (f_handle == NULL)
     {
@@ -31,16 +29,13 @@ int Clock_In(const char* user_name) {
         return FILE_READ_ERROR;
     }
 
+    //Write code...
+
     CLOSE_FILE
 }
 
-/**
-* @purpose: Attempts Clock out the user that is passed-in
-* @return: returns 0 on success, negative error code if failure, please see
-* Program_macros for error codes 
-*/
 int Clock_Out(const char* user_name) {
-    FILE *f_handle = fopen(ENTRY_DATABASE, "r");
+    FILE *f_handle = fopen(DATABASE, "r");
     time_t current_time = time(NULL);
     if (f_handle == NULL) 
     {
@@ -48,5 +43,71 @@ int Clock_Out(const char* user_name) {
         return FILE_READ_ERROR;
     }
 
+    //Write code...
+
     CLOSE_FILE
+}
+
+bool file_exists(char* filename) {
+    struct stat buffer; 
+    return (stat(filename, &buffer) == 0);
+}
+
+int read_usernames(char** buf) {
+    FILE *f_handle = fopen(DATABASE, "r"); 
+    if (f_handle == NULL) 
+    {
+        return FILE_READ_ERROR;
+    }
+
+    int i = 0;
+    char buffer[USERNAME_MAX_SIZE];
+
+    while (!feof(f_handle))
+    {
+        fscanf(f_handle, "%s", buffer);                     //scan the username within the database file
+        buf[i] = malloc(strlen(buffer) * sizeof(char));     //Making enough memory for the username
+        strcpy(buf[i], buffer);                             //storing the username in buf
+        while (fgetc(f_handle) != '\n' && !feof(f_handle)); //Skips to the next line
+        i++;
+    }
+
+    CLOSE_FILE
+
+    return i;
+}
+
+int read_clocked_in(char** buf) {
+    FILE *f_handle = fopen(DATABASE, "r"); 
+    if (f_handle == NULL) 
+    {
+        return FILE_READ_ERROR;
+    } 
+
+    int i = 0;
+    char buffer[USERNAME_MAX_SIZE];
+
+    while (!feof(f_handle))
+    {
+        fscanf(f_handle, "%s", buffer);                     //scan the username within the database file
+        if (strchr(buffer, '+') != NULL) 
+        {
+        buf[i] = malloc(strlen(buffer) * sizeof(char));     //Making enough memory for the username
+        strcpy(buf[i], buffer);                             //storing the username in buf
+        i++;
+        }
+        while (fgetc(f_handle) != '\n' && !feof(f_handle)); //Skips to the next line
+    }
+
+    CLOSE_FILE
+
+    return i;
+}
+
+void list_usernames(int size, char** buf) {
+    for (int i = 0; i < size; i++)
+    {
+        if (buf[i] == NULL) { break; }
+        printf("%s\n", buf[i]);
+    }  
 }

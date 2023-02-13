@@ -78,14 +78,6 @@ void list_usernames(int size, char** buf) {
   }  
 }
 
-void list_clocked_in(int size, char** buf) {
-  for (int i = 0; i < size; i++)
-  {
-    if (buf[i] == NULL) { break; }
-    printf("%s\n", buf[i]);
-  }  
-}
-
 int main(int argc, char** argv) {
 
   //Check to see if file exists
