@@ -22,8 +22,6 @@
 #include <signal.h> // refer to man signal or https://en.cppreference.com/w/c/program/signal
 #include <ctype.h>
 #include <ncurses.h>
-#include <time.h>
-#include "Clock.h"
 #include "Choice_Functions.h"
 #include "cursorSelection.h"
 
@@ -36,18 +34,18 @@ int main(void) {
 	//be created here instead of being created within another function
 	//to prevent overusage of heap memory.
 	//(Bruh don't use so much memory, this is C)
-	//-----------------------------------------------------------------------------------	
+	//----------------------------------
 	int choice = 0;
 	int res;
-	char** usernames = (char**)calloc(MAX_CLOCKED_IN, USERNAME_MAX); //array of strings that hold the current the names of the clocked-in users
+	char** usernames = (char**)malloc(USERNAME_LIMIT * sizeof(char *)); //array of strings that hold the current the names of the clocked-in users
 	char* default_options[4] = {"Create New User", "Clock-In User", "Clock-Out User", "Show TimeSheet"};
-	//-----------------------------------------------------------------------------------	
+	//----------------------------------
 
 
 	//Signal defines will be placed here	
-	//-----------------------------------------------------------------------------------	
+	//----------------------------------
 	signal(SIGINT, CtlC_switch);
-	//-----------------------------------------------------------------------------------	
+	//----------------------------------
 
 	while(1) 	
 	{
@@ -67,6 +65,7 @@ int main(void) {
 			res = Clock_In()
 			break; 
 		case 2: //Clock-out User
+			res = Clock_Out_user
 			break; 
 		case 3: //Show Timesheet
 			break;
