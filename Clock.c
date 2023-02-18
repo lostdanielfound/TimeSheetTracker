@@ -1,21 +1,48 @@
 #include "Clock.h"
 #include <stdio.h>
 #include <stdbool.h>
-// #include <string.h>
+#include <string.h>
 #include <malloc.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 
 int Create_New_user(const char* name) {
-    FILE *f_handle = fopen(DATABASE, "r");
-    time_t current_time = time(NULL);
+    FILE *f_handle = fopen(DATABASE, "a");
+
     if (f_handle == NULL)
     {
-        printf("\tFile error: Could not open for reading\n");
-        return FILE_READ_ERROR;
+        perror("File error: Could not open for reading\n");
+        CLOSE_FILE
+        return FILE_OPEN_ERROR;
     }
 
-    //Write code...
+    /**
+     * Check string to ensure it follows format
+     * - Size is at most 256 characters
+     * - Does not include non-letter characters 
+     * - Can't include "+" and numbers
+     */
+    if ((strchr(name, '+') != NULL) || strpbrk(name, "0123456789")) 
+    {
+        perror("Error: New name can't have the '+' symbol or have any digits\n");
+        CLOSE_FILE
+        return FILE_APPEND_ERROR;
+    }
+    else if (strlen(name) > 256)
+    {
+        perror("Error: New name can't be over 256 in length\n");
+        CLOSE_FILE
+        return FILE_APPEND_ERROR;
+    }
+
+
+    /* Write the new user's name at the file */
+    if (fwrite(name, sizeof(char), strlen(name), f_handle) < strlen(name))
+    {
+        perror("File Error: Username was written incorrectly, aborting\n");
+        CLOSE_FILE
+        return FILE_APPEND_ERROR;
+    }
 
     CLOSE_FILE
 }
