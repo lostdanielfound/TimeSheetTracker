@@ -7,6 +7,8 @@
 #define USERNAME_MAX_SIZE 256
 
 #define CLOSE_FILE if (f_handle != NULL) { fclose(f_handle); }
+#define FILE_OPEN_ERROR -3
+#define FILE_WRITE_ERROR -4 
 #define FILE_APPEND_ERROR -5
 #define FILE_READ_ERROR -6
 #define INVAILD_INPUT -7
