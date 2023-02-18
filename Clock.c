@@ -49,7 +49,7 @@ int Create_New_user(const char* name) {
 }
 
 int Clock_In(const char* user_name) {
-    FILE *f_handle = fopen(DATABASE, "w");
+    FILE *f_handle = fopen(DATABASE, "r+");
     time_t current_time = time(NULL); //Get upmost current time when calling function
 
     if (f_handle == NULL)
@@ -59,11 +59,21 @@ int Clock_In(const char* user_name) {
     }
 
     /* Search for the username within the file */
-    
+    char buffer[USERNAME_MAX_SIZE];
+    while (!feof(f_handle))
+    {
+        fscanf(f_handle, "%s", buffer);                     //scan the username within the database file
+        if (!strcmp(user_name, buffer)) { break; }          //Break once we found the username
+        while (fgetc(f_handle) != '\n' && !feof(f_handle)); //Skips to the next line
+    }
 
     /* Insert '+' directly after username */
+    fwrite("+ ", sizeof(char), 3, f_handle);
 
     /* Append timestamp at the end of timesheet */
+    while (fgetc(f_handle) != '\n' && !feof(f_handle)); //Get to the end of the line
+    fseek(f_handle, -1L, f_handle);                     //seek backwards by one
+    fwrite(&current_time, sizeof(time_t), 1, f_handle); //appending to file
 
     CLOSE_FILE
     return EXIT_SUCCESS;
