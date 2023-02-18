@@ -11,7 +11,7 @@ int Create_New_user(const char* name) {
 
     if (f_handle == NULL)
     {
-        perror("File error: Could not open for reading\n");
+        perror("File error: Could not open for appending\n");
         CLOSE_FILE
         return FILE_OPEN_ERROR;
     }
@@ -45,20 +45,28 @@ int Create_New_user(const char* name) {
     }
 
     CLOSE_FILE
+    return EXIT_SUCCESS;
 }
 
 int Clock_In(const char* user_name) {
-    FILE *f_handle = fopen(DATABASE, "r");
-    time_t current_time = time(NULL);
+    FILE *f_handle = fopen(DATABASE, "w");
+    time_t current_time = time(NULL); //Get upmost current time when calling function
+
     if (f_handle == NULL)
     {
-        printf("\tFile error: Could not open for reading\n");
-        return FILE_READ_ERROR;
+        printf("\tFile error: Could not open for writing\n");
+        return FILE_OPEN_ERROR;
     }
 
-    //Write code...
+    /* Search for the username within the file */
+    
+
+    /* Insert '+' directly after username */
+
+    /* Append timestamp at the end of timesheet */
 
     CLOSE_FILE
+    return EXIT_SUCCESS;
 }
 
 int Clock_Out(const char* user_name) {
